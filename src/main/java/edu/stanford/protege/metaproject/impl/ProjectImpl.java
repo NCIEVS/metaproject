@@ -81,6 +81,11 @@ public final class ProjectImpl implements Project, Serializable {
         return false;
     }
 
+	@Override
+	public boolean classified() {
+		return false;
+	}
+
     @Override
     public boolean isProject() {
         return true;

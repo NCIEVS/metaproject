@@ -31,4 +31,5 @@ public interface Project extends PolicyObject<ProjectId>, HasDescription, Compar
     @Nonnull
     Optional<ProjectOptions> getOptions();
 
+	boolean classified();
 }
