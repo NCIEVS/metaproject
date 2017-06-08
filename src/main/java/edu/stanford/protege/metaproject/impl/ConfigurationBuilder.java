@@ -281,7 +281,8 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder addProject(Project project) throws IdAlreadyInUseException {
         checkNotNull(project);
         if (projects.contains(project)) {
-            throw new IdAlreadyInUseException("The specified project identifier is already used by another project");
+            throw new IdAlreadyInUseException("The specified project identifier is already used by another project: "
+							+ project);
         }
         projects.add(project);
         return this;
