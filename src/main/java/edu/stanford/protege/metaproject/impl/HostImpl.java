@@ -2,6 +2,7 @@ package edu.stanford.protege.metaproject.impl;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import edu.stanford.protege.metaproject.api.Host;
 import edu.stanford.protege.metaproject.api.Port;
 
@@ -10,7 +11,6 @@ import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.Serializable;
 import java.net.URI;
-import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

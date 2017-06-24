@@ -1,6 +1,7 @@
 package edu.stanford.protege.metaproject.serialization;
 
 import com.google.gson.*;
+import com.google.common.base.Optional;
 import edu.stanford.protege.metaproject.ConfigurationManager;
 import edu.stanford.protege.metaproject.api.PolicyFactory;
 import edu.stanford.protege.metaproject.api.Host;
@@ -9,7 +10,6 @@ import edu.stanford.protege.metaproject.api.Port;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Optional;
 
 /**
  * @author Rafael Gonçalves <br>
@@ -23,7 +23,10 @@ public class HostSerializer implements JsonSerializer<Host>, JsonDeserializer<Ho
     public JsonElement serialize(Host host, Type type, JsonSerializationContext context) {
         JsonObject obj = new JsonObject();
         obj.add(SERVER_URI, context.serialize(host.getUri()));
-        host.getSecondaryPort().ifPresent(e -> obj.add(SECONDARY_PORT, context.serialize(e)));
+        Optional<Port> port = host.getSecondaryPort();
+        if (port.isPresent()) {
+            obj.add(SECONDARY_PORT, context.serialize(port.get()));
+        }
         return obj;
     }
 
@@ -38,8 +41,8 @@ public class HostSerializer implements JsonSerializer<Host>, JsonDeserializer<Ho
             e.printStackTrace();
         }
         Optional<Port> optionalPort = (obj.getAsJsonPrimitive(SECONDARY_PORT) != null ?
-                Optional.ofNullable(factory.getPort(obj.getAsJsonPrimitive(SECONDARY_PORT).getAsInt())) :
-                Optional.empty());
+                Optional.fromNullable(factory.getPort(obj.getAsJsonPrimitive(SECONDARY_PORT).getAsInt())) :
+                Optional.absent());
         return factory.getHost(address, optionalPort);
     }
 }

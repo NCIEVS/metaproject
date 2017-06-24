@@ -1,6 +1,7 @@
 package edu.stanford.protege.metaproject.serialization;
 
 import com.google.gson.Gson;
+import com.google.common.base.Optional;
 import edu.stanford.protege.metaproject.TestUtils;
 import edu.stanford.protege.metaproject.api.Host;
 import edu.stanford.protege.metaproject.api.Port;
@@ -8,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URI;
-import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;

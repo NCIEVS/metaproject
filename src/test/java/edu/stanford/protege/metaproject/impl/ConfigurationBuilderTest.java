@@ -5,7 +5,8 @@ import edu.stanford.protege.metaproject.TestUtils;
 import edu.stanford.protege.metaproject.api.*;
 import org.junit.Test;
 
-import java.io.File;
+import com.google.common.base.Optional;
+
 import java.net.URI;
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class ConfigurationBuilderTest {
 
     @Test
     public void testSetHost() throws Exception {
-        Host host = factory.getHost(URI.create("http://protege.stanford.edu"), Optional.empty());
+        Host host = factory.getHost(URI.create("http://protege.stanford.edu"), Optional.absent());
         ServerConfiguration config = new ConfigurationBuilder().setHost(host).createServerConfiguration();
         assertThat(config.getHost(), is(host));
     }

@@ -1,5 +1,6 @@
 package edu.stanford.protege.metaproject.impl;
 
+import com.google.common.base.Optional;
 import edu.stanford.protege.metaproject.ConfigurationManager;
 import edu.stanford.protege.metaproject.api.*;
 import edu.stanford.protege.metaproject.api.exception.*;
@@ -222,7 +223,9 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setUser(UserId userId, User user) {
         checkNotNull(userId);
         checkNotNull(user);
-        getUser(userId).ifPresent(this::removeUser);
+        if (getUser(userId).isPresent()) {
+            removeUser(getUser(userId).get());
+        }
         try {
             addUser(user);
         } catch (IdAlreadyInUseException e) {
@@ -241,7 +244,10 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setUserName(UserId userId, Name userName) {
         checkNotNull(userId);
         checkNotNull(userName);
-        getUser(userId).ifPresent(user -> setUser(userId, factory.getUser(userId, userName, user.getEmailAddress())));
+        if (getUser(userId).isPresent()) {
+            User user = getUser(userId).get();
+            setUser(userId, factory.getUser(userId, userName, user.getEmailAddress()));
+        }
         return this;
     }
 
@@ -255,7 +261,10 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setUserEmailAddress(UserId userId, EmailAddress emailAddress) {
         checkNotNull(userId);
         checkNotNull(emailAddress);
-        getUser(userId).ifPresent(user -> setUser(userId, factory.getUser(userId, user.getName(), emailAddress)));
+        if (getUser(userId).isPresent()) {
+            User user = getUser(userId).get();
+            setUser(userId, factory.getUser(userId, user.getName(), emailAddress));
+        }
         return this;
     }
 
@@ -265,7 +274,7 @@ public class ConfigurationBuilder {
                 return Optional.of(u);
             }
         }
-        return Optional.empty();
+        return Optional.absent();
     }
 
 
@@ -310,7 +319,9 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setProject(ProjectId projectId, Project project) {
         checkNotNull(projectId);
         checkNotNull(project);
-        getProject(projectId).ifPresent(this::removeProject);
+        if (getProject(projectId).isPresent()) {
+            removeProject(getProject(projectId).get());
+        }
         try {
             addProject(project);
         } catch (IdAlreadyInUseException e) {
@@ -329,8 +340,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setProjectName(ProjectId projectId, Name projectName) {
         checkNotNull(projectId);
         checkNotNull(projectName);
-        getProject(projectId).ifPresent(project -> setProject(projectId,
-                factory.getProject(project.getId(), projectName, project.getDescription(), project.getOwner(), project.getOptions())));
+        Optional<Project> projectOpt = getProject(projectId);
+        if (projectOpt.isPresent()) {
+            Project project = projectOpt.get();
+            setProject(projectId,
+                factory.getProject(project.getId(), projectName, project.getDescription(), project.getOwner(), project.getOptions()));
+        }
         return this;
     }
 
@@ -344,8 +359,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setProjectDescription(ProjectId projectId, Description projectDescription) {
         checkNotNull(projectId);
         checkNotNull(projectDescription);
-        getProject(projectId).ifPresent(project -> setProject(projectId,
-                factory.getProject(project.getId(), project.getName(), projectDescription, project.getOwner(), project.getOptions())));
+        Optional<Project> projectOpt = getProject(projectId);
+        if (projectOpt.isPresent()) {
+            Project project = projectOpt.get();
+            setProject(projectId,
+                factory.getProject(project.getId(), project.getName(), projectDescription, project.getOwner(), project.getOptions()));
+        }
         return this;
     }
 
@@ -359,8 +378,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setProjectOwner(ProjectId projectId, UserId userId) {
         checkNotNull(projectId);
         checkNotNull(userId);
-        getProject(projectId).ifPresent(project -> setProject(projectId,
-                factory.getProject(project.getId(), project.getName(), project.getDescription(), userId, project.getOptions())));
+        Optional<Project> projectOpt = getProject(projectId);
+        if (projectOpt.isPresent()) {
+            Project project = projectOpt.get();
+            setProject(projectId,
+                    factory.getProject(project.getId(), project.getName(), project.getDescription(), userId, project.getOptions()));
+        }
         return this;
     }
 
@@ -374,8 +397,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setProjectFile(ProjectId projectId, File file) {
         checkNotNull(projectId);
         checkNotNull(file);
-        getProject(projectId).ifPresent(project -> setProject(projectId,
-                factory.getProject(project.getId(), project.getName(), project.getDescription(), project.getOwner(), project.getOptions())));
+        Optional<Project> projectOpt = getProject(projectId);
+        if (projectOpt.isPresent()) {
+            Project project = projectOpt.get();
+            setProject(projectId,
+                    factory.getProject(project.getId(), project.getName(), project.getDescription(), project.getOwner(), project.getOptions()));
+        }
         return this;
     }
 
@@ -389,8 +416,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setProjectOptions(ProjectId projectId, ProjectOptions projectOptions) {
         checkNotNull(projectId);
         checkNotNull(projectOptions);
-        getProject(projectId).ifPresent(project -> setProject(projectId,
-                factory.getProject(projectId, project.getName(), project.getDescription(), project.getOwner(), Optional.of(projectOptions))));
+        Optional<Project> projectOpt = getProject(projectId);
+        if (projectOpt.isPresent()) {
+            Project project = projectOpt.get();
+            setProject(projectId,
+                    factory.getProject(projectId, project.getName(), project.getDescription(), project.getOwner(), Optional.of(projectOptions)));
+        }
         return this;
     }
 
@@ -400,7 +431,7 @@ public class ConfigurationBuilder {
                 return Optional.of(p);
             }
         }
-        return Optional.empty();
+        return Optional.absent();
     }
 
 
@@ -444,7 +475,10 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setRole(RoleId roleId, Role role) {
         checkNotNull(roleId);
         checkNotNull(role);
-        getRole(roleId).ifPresent(this::removeRole);
+        Optional<Role> oldRole = getRole(roleId);
+        if (oldRole.isPresent()) {
+            removeRole(oldRole.get());
+        }
         try {
             addRole(role);
         } catch (IdAlreadyInUseException e) {
@@ -463,8 +497,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setRoleName(RoleId roleId, Name roleName) {
         checkNotNull(roleId);
         checkNotNull(roleName);
-        getRole(roleId).ifPresent(role -> setRole(roleId,
-                factory.getRole(role.getId(), roleName, role.getDescription(), role.getOperations())));
+        Optional<Role> roleOpt = getRole(roleId);
+        if (roleOpt.isPresent()) {
+            Role role = roleOpt.get();
+            setRole(roleId,
+                    factory.getRole(role.getId(), roleName, role.getDescription(), role.getOperations()));
+        }
         return this;
     }
 
@@ -478,8 +516,12 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setRoleDescription(RoleId roleId, Description roleDescription) {
         checkNotNull(roleId);
         checkNotNull(roleDescription);
-        getRole(roleId).ifPresent(role -> setRole(roleId,
-                factory.getRole(role.getId(), role.getName(), roleDescription, role.getOperations())));
+        Optional<Role> roleOpt = getRole(roleId);
+        if (roleOpt.isPresent()) {
+            Role role = roleOpt.get();
+            setRole(roleId,
+                    factory.getRole(role.getId(), role.getName(), roleDescription, role.getOperations()));
+        }
         return this;
     }
 
@@ -493,11 +535,13 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder addOperationToRole(RoleId roleId, OperationId... operationIds) {
         checkNotNull(roleId);
         checkNotNull(operationIds);
-        getRole(roleId).ifPresent(role -> {
+        Optional<Role> roleOpt = getRole(roleId);
+        if (roleOpt.isPresent()) {
+            Role role = roleOpt.get();
             Set<OperationId> operations = new HashSet<>(role.getOperations());
             Collections.addAll(operations, operationIds);
             setRole(roleId, factory.getRole(role.getId(), role.getName(), role.getDescription(), operations));
-        });
+        }
         return this;
     }
 
@@ -511,13 +555,15 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder removeOperationFromRole(RoleId roleId, OperationId... operationIds) {
         checkNotNull(roleId);
         checkNotNull(operationIds);
-        getRole(roleId).ifPresent(role -> {
+        Optional<Role> roleOpt = getRole(roleId);
+        if (roleOpt.isPresent()) {
+            Role role = roleOpt.get();
             Set<OperationId> operations = new HashSet<>(role.getOperations());
             for (OperationId operationId : operationIds) {
                 operations.remove(checkNotNull(operationId));
             }
             setRole(roleId, factory.getRole(role.getId(), role.getName(), role.getDescription(), operations));
-        });
+        }
         return this;
     }
 
@@ -527,7 +573,7 @@ public class ConfigurationBuilder {
                 return Optional.of(r);
             }
         }
-        return Optional.empty();
+        return Optional.absent();
     }
 
 
@@ -571,7 +617,10 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setOperation(OperationId operationId, Operation operation) {
         checkNotNull(operationId);
         checkNotNull(operation);
-        getOperation(operationId).ifPresent(this::removeOperation);
+        Optional<Operation> operationOpt = getOperation(operationId);
+        if (operationOpt.isPresent()) {
+            removeOperation(operationOpt.get());
+        }
         try {
             addOperation(operation);
         } catch (IdAlreadyInUseException e) {
@@ -590,13 +639,15 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setOperationName(OperationId operationId, Name operationName) {
         checkNotNull(operationId);
         checkNotNull(operationName);
-        getOperation(operationId).ifPresent(operation -> {
+        Optional<Operation> operationOpt = getOperation(operationId);
+        if (operationOpt.isPresent()) {
+            Operation operation = operationOpt.get();
             if (!operation.isSystemOperation()) {
                 setOperation(operationId, factory.getCustomOperation(operation.getId(), operationName, operation.getDescription(), operation.getType(), operation.getScope()));
             } else {
                 logger.error("Cannot modify name of a system operation");
             }
-        });
+        }
         return this;
     }
 
@@ -610,13 +661,15 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setOperationDescription(OperationId operationId, Description operationDescription) {
         checkNotNull(operationId);
         checkNotNull(operationDescription);
-        getOperation(operationId).ifPresent(operation -> {
+        Optional<Operation> operationOpt = getOperation(operationId);
+        if (operationOpt.isPresent()) {
+            Operation operation = operationOpt.get();
             if (!operation.isSystemOperation()) {
                 setOperation(operationId, factory.getCustomOperation(operation.getId(), operation.getName(), operationDescription, operation.getType(), operation.getScope()));
             } else {
                 logger.error("Cannot modify description of a system operation");
             }
-        });
+        }
         return this;
     }
 
@@ -626,7 +679,7 @@ public class ConfigurationBuilder {
                 return Optional.of(o);
             }
         }
-        return Optional.empty();
+        return Optional.absent();
     }
 
 
@@ -803,7 +856,10 @@ public class ConfigurationBuilder {
      */
     public ConfigurationBuilder unregisterUser(UserId userId) {
         checkNotNull(userId);
-        getAuthenticationDetails(userId).ifPresent(details -> authDetails.remove(details));
+        Optional<AuthenticationDetails> authDetailsOpt = getAuthenticationDetails(userId);
+        if (authDetailsOpt.isPresent()) {
+            authDetails.remove(authDetailsOpt.get());
+        }
         return this;
     }
 
@@ -838,7 +894,7 @@ public class ConfigurationBuilder {
                 return Optional.of(detail);
             }
         }
-        return Optional.empty();
+        return Optional.absent();
     }
 
     private <E extends PolicyObjectId, T extends PolicyObject> boolean contains(E id, Set<T> elements) {

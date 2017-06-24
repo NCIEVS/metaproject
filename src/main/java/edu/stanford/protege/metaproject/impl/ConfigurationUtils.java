@@ -3,9 +3,10 @@ package edu.stanford.protege.metaproject.impl;
 import edu.stanford.protege.metaproject.ConfigurationManager;
 import edu.stanford.protege.metaproject.api.*;
 
+import com.google.common.base.Optional;
+
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.io.File;
 import java.net.URISyntaxException;
 import java.util.*;
 
@@ -135,7 +136,7 @@ public final class ConfigurationUtils {
      */
     public static Project getUniversalProject() {
         return f.getProject(getUniversalProjectId(), f.getName(UNIVERSAL_PROJECT_NAME), f.getDescription(UNIVERSAL_PROJECT_DESCRIPTION),
-                f.getUserId(SYSTEM_USER_ID), Optional.empty());
+                f.getUserId(SYSTEM_USER_ID), Optional.absent());
     }
 
     /**

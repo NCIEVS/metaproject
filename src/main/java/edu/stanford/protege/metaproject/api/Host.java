@@ -1,8 +1,9 @@
 package edu.stanford.protege.metaproject.api;
 
+import com.google.common.base.Optional;
+
 import javax.annotation.Nonnull;
 import java.net.URI;
-import java.util.Optional;
 
 /**
  * A representation of host information, consisting of a URI and a secondary (optional) port

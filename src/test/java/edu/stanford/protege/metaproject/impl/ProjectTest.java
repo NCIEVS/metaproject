@@ -6,8 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import java.io.File;
-import java.util.Optional;
+import com.google.common.base.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,9 +35,9 @@ public class ProjectTest {
 
     @Before
     public void setUp() {
-        project = TestUtils.getProject(projectId, projectName, projectDescription, ownerId, Optional.ofNullable(projectOptions));
-        otherProject = TestUtils.getProject(projectId, projectName, projectDescription, ownerId, Optional.ofNullable(projectOptions));
-        diffProject = TestUtils.getProject(diffProjectId, diffProjectName, projectDescription, ownerId, Optional.ofNullable(projectOptions));
+        project = TestUtils.getProject(projectId, projectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
+        otherProject = TestUtils.getProject(projectId, projectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
+        diffProject = TestUtils.getProject(diffProjectId, diffProjectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
     }
 
     @Test
