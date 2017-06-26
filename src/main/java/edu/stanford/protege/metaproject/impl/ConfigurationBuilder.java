@@ -220,19 +220,20 @@ public class ConfigurationBuilder {
      * @param user  User
      * @return ServerConfigurationBuilder
      */
-    public ConfigurationBuilder setUser(UserId userId, User user) {
-        checkNotNull(userId);
-        checkNotNull(user);
-        if (getUser(userId).isPresent()) {
-            removeUser(getUser(userId).get());
-        }
-        try {
-            addUser(user);
-        } catch (IdAlreadyInUseException e) {
-            logger.debug("Attempted to replace a user but the original user instance was not properly deleted beforehand");
-        }
-        return this;
-    }
+		public ConfigurationBuilder setUser(UserId userId, User user) {
+			checkNotNull(userId);
+			checkNotNull(user);
+			final Optional<User> userOptional = getUser(userId);
+			if (userOptional.isPresent()) {
+				removeUser(userOptional.get());
+			}
+			try {
+				addUser(user);
+			} catch (IdAlreadyInUseException e) {
+				logger.debug("Attempted to replace a user but the original user instance was not properly deleted beforehand");
+			}
+			return this;
+		}
 
     /**
      * Change the display name of the given user
@@ -244,8 +245,9 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setUserName(UserId userId, Name userName) {
         checkNotNull(userId);
         checkNotNull(userName);
-        if (getUser(userId).isPresent()) {
-            User user = getUser(userId).get();
+			final Optional<User> userOptional = getUser(userId);
+			if (userOptional.isPresent()) {
+            User user = userOptional.get();
             setUser(userId, factory.getUser(userId, userName, user.getEmailAddress()));
         }
         return this;
@@ -261,8 +263,9 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder setUserEmailAddress(UserId userId, EmailAddress emailAddress) {
         checkNotNull(userId);
         checkNotNull(emailAddress);
-        if (getUser(userId).isPresent()) {
-            User user = getUser(userId).get();
+			final Optional<User> userOptional = getUser(userId);
+			if (userOptional.isPresent()) {
+            User user = userOptional.get();
             setUser(userId, factory.getUser(userId, user.getName(), emailAddress));
         }
         return this;
