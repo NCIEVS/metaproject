@@ -1,8 +1,7 @@
 package edu.stanford.protege.metaproject.api;
 
 import javax.annotation.Nonnull;
-import java.io.File;
-import java.util.Optional;
+import com.google.common.base.Optional;
 
 /**
  * A representation of a project, consisting of a unique (internal) identifier, a (display) name, and a

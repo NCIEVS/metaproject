@@ -1,11 +1,11 @@
 package edu.stanford.protege.metaproject.api;
 
+import com.google.common.base.Optional;
+
 import javax.annotation.Nonnull;
-import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 /**

@@ -2,15 +2,14 @@ package edu.stanford.protege.metaproject.impl;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.google.common.base.Optional;
 import com.google.common.collect.ComparisonChain;
 import edu.stanford.protege.metaproject.api.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
-import java.io.File;
 import java.io.Serializable;
-import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

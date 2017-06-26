@@ -5,6 +5,8 @@ import edu.stanford.protege.metaproject.impl.ConfigurationBuilder;
 import edu.stanford.protege.metaproject.impl.ConfigurationUtils;
 import edu.stanford.protege.metaproject.impl.ProjectOptionsImpl;
 
+import com.google.common.base.Optional;
+
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;

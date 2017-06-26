@@ -1,12 +1,11 @@
 package edu.stanford.protege.metaproject.serialization;
 
 import com.google.gson.*;
+import com.google.common.base.Optional;
 import edu.stanford.protege.metaproject.ConfigurationManager;
 import edu.stanford.protege.metaproject.api.*;
 
-import java.io.File;
 import java.lang.reflect.Type;
-import java.util.Optional;
 
 /**
  * @author Rafael Gonçalves <br>
@@ -41,6 +40,6 @@ public class ProjectSerializer implements JsonDeserializer<Project>, JsonSeriali
         if(obj.getAsJsonObject(OPTIONS) != null) {
             projectOptions = context.deserialize(obj.getAsJsonObject(OPTIONS), ProjectOptions.class);
         }
-        return factory.getProject(projectId, projectName, projectDescription, owner, Optional.ofNullable(projectOptions));
+        return factory.getProject(projectId, projectName, projectDescription, owner, Optional.fromNullable(projectOptions));
     }
 }

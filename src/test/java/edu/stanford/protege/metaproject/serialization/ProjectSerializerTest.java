@@ -6,8 +6,7 @@ import edu.stanford.protege.metaproject.api.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.util.Optional;
+import com.google.common.base.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
