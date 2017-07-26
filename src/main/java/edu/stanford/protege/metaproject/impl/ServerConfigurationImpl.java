@@ -329,7 +329,9 @@ public final class ServerConfigurationImpl implements ServerConfiguration, Seria
         if(project != null) {
             return project;
         } else {
-            throw new UnknownProjectIdException("The specified project identifier does not correspond to an existing project");
+					final String message = String.format(
+						"The specified project id '%s' does not correspond to an existing project", projectId.get());
+					throw new UnknownProjectIdException(message);
         }
     }
 
