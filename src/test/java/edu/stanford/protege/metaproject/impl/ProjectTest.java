@@ -19,6 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ProjectTest {
     private static final String
             projectIdStr = "testProjectId1",
+            projectNspcStr = "testNamespaceId1",
             otherIdStr = "testProjectId2",
             projectNameStr = "test project name",
             otherProjectNameStr = "test project name 2",
@@ -35,9 +36,9 @@ public class ProjectTest {
 
     @Before
     public void setUp() {
-        project = TestUtils.getProject(projectId, projectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
-        otherProject = TestUtils.getProject(projectId, projectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
-        diffProject = TestUtils.getProject(diffProjectId, diffProjectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
+        project = TestUtils.getProject(projectId, projectNspcStr, projectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
+        otherProject = TestUtils.getProject(projectId, projectNspcStr, projectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
+        diffProject = TestUtils.getProject(diffProjectId, projectNspcStr, diffProjectName, projectDescription, ownerId, Optional.fromNullable(projectOptions));
     }
 
     @Test

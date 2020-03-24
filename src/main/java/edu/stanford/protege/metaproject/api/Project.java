@@ -1,5 +1,7 @@
 package edu.stanford.protege.metaproject.api;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 import com.google.common.base.Optional;
 
@@ -21,6 +23,16 @@ public interface Project extends PolicyObject<ProjectId>, HasDescription, Compar
      */
     @Nonnull
     UserId getOwner();
+    
+    @Nonnull
+    String namespace();
+    
+    Set<ProjectId> getImports();
+    
+    public void addImport(ProjectId id);
+    
+    void removeImport(ProjectId id);
+    
 
     /**
      * Get the options for this project
@@ -29,5 +41,7 @@ public interface Project extends PolicyObject<ProjectId>, HasDescription, Compar
      */
     @Nonnull
     Optional<ProjectOptions> getOptions();
+
+	
 
 }

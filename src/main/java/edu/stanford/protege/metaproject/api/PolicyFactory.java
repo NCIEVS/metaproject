@@ -26,7 +26,7 @@ public interface PolicyFactory {
      * @return New Project instance
      */
     @Nonnull
-    Project getProject(@Nonnull ProjectId projectId, @Nonnull Name name, @Nonnull Description description, @Nonnull UserId ownerId, @Nonnull Optional<ProjectOptions> options);
+    Project getProject(@Nonnull ProjectId projectId, String namespace, @Nonnull Name name, @Nonnull Description description, @Nonnull UserId ownerId, @Nonnull Optional<ProjectOptions> options);
 
     /**
      * Create a new role
@@ -168,6 +168,8 @@ public interface PolicyFactory {
      */
     @Nonnull
     ProjectId getProjectId(@Nonnull String projectId);
+    
+    String getProjectNamespace(String namespace);
 
     /**
      * Create a new identifier for an operation

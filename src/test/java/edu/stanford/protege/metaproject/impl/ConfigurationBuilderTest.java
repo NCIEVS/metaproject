@@ -185,7 +185,7 @@ public class ConfigurationBuilderTest {
         ServerConfiguration config = new ConfigurationBuilder().addProject(project).createServerConfiguration();
         assertThat(config.containsProject(project), is(true));
 
-        Project projectAlt = factory.getProject(project.getId(), project.getName(), project.getDescription(),
+        Project projectAlt = factory.getProject(project.getId(), project.namespace(), project.getName(), project.getDescription(),
                 factory.getUserId("newOwner"), project.getOptions());
         ServerConfiguration configAlt = new ConfigurationBuilder(config).setProject(project.getId(), projectAlt).createServerConfiguration();
         assertThat(configAlt.containsProject(project), is(false));

@@ -10,6 +10,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -26,6 +28,8 @@ public final class ProjectImpl implements Project, Serializable {
     @Nonnull private final Name name;
     @Nonnull private final Description description;
     @Nonnull private final UserId owner;
+    @Nonnull private final String namespace;
+    private final Set<ProjectId> imports = new HashSet<ProjectId>();
     @Nonnull private final Optional<ProjectOptions> options;
 
     /**
@@ -37,8 +41,9 @@ public final class ProjectImpl implements Project, Serializable {
      * @param owner Owner of the project
      * @param options   Project options
      */
-    public ProjectImpl(@Nonnull ProjectId id, @Nonnull Name name, @Nonnull Description description, @Nonnull UserId owner, @Nonnull Optional<ProjectOptions> options) {
+    public ProjectImpl(@Nonnull ProjectId id, String namespace, @Nonnull Name name, @Nonnull Description description, @Nonnull UserId owner, @Nonnull Optional<ProjectOptions> options) {
         this.id = checkNotNull(id);
+        this.namespace = checkNotNull(namespace);
         this.name = checkNotNull(name);
         this.description = checkNotNull(description);
         this.owner = checkNotNull(owner);
@@ -134,4 +139,26 @@ public final class ProjectImpl implements Project, Serializable {
                 .compare(this.name.get(), that.getName().get())
                 .result();
     }
+
+	@Override
+	public String namespace() {
+		return namespace;
+	}
+
+	@Override
+	public Set<ProjectId> getImports() {
+		return imports;
+	}
+
+	@Override
+	public void addImport(ProjectId id) {
+		imports.add(id);
+		
+	}
+	
+	@Override
+	public void removeImport(ProjectId id) {
+		imports.remove(id);
+		
+	}
 }

@@ -47,9 +47,17 @@ public class TestUtils {
     public static ProjectId getProjectId() {
         return getProjectId("projectId-" + newUUID());
     }
+    
+    public static String getNamespace() {
+        return getNamespace("namespace-" + newUUID());
+    }
 
     public static ProjectId getProjectId(String projectId) {
         return f.getProjectId(projectId);
+    }
+    
+    public static String getNamespace(String nspc) {
+    	return f.getProjectNamespace(nspc);
     }
 
     public static OperationId getOperationId() {
@@ -251,11 +259,11 @@ public class TestUtils {
     /*   access control policy objects   */
 
     public static Project getProject() {
-        return getProject(getProjectId(), getName(), getDescription(), getUserId(), Optional.of(getProjectOptions()));
+        return getProject(getProjectId(), getNamespace(),  getName(), getDescription(), getUserId(), Optional.of(getProjectOptions()));
     }
 
-    public static Project getProject(ProjectId id, Name name, Description description, UserId owner, Optional<ProjectOptions> projectOptions) {
-        return f.getProject(id, name, description, owner, projectOptions);
+    public static Project getProject(ProjectId id, String nspc, Name name, Description description, UserId owner, Optional<ProjectOptions> projectOptions) {
+        return f.getProject(id, nspc, name, description, owner, projectOptions);
     }
 
     public static Operation getSystemOperation() {

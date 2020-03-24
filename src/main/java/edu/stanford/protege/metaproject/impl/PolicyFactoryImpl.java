@@ -31,13 +31,13 @@ public final class PolicyFactoryImpl implements PolicyFactory {
 
     @Nonnull
     @Override
-    public Project getProject(@Nonnull ProjectId projectId, @Nonnull Name name, @Nonnull Description description, @Nonnull UserId ownerId, @Nonnull Optional<ProjectOptions> options) {
+    public Project getProject(@Nonnull ProjectId projectId, String namespace, @Nonnull Name name, @Nonnull Description description, @Nonnull UserId ownerId, @Nonnull Optional<ProjectOptions> options) {
         checkNotNull(projectId, "Project identifier cannot be null");
         checkNotNull(name, "Name cannot be null");
         checkNotNull(description, "Description cannot be null");
         checkNotNull(ownerId, "Owner user identifier cannot be null");
         checkNotNull(options, "Project options cannot be null");
-        return new ProjectImpl(projectId, name, description, ownerId, options);
+        return new ProjectImpl(projectId, namespace, name, description, ownerId, options);
     }
 
     @Nonnull
@@ -250,4 +250,10 @@ public final class PolicyFactoryImpl implements PolicyFactory {
         checkNotNull(options, "Options map must not be null");
         return new ProjectOptionsImpl(options);
     }
+
+	@Override
+	public String getProjectNamespace(String namespace) {
+		// TODO Auto-generated method stub
+		return namespace;
+	}
 }

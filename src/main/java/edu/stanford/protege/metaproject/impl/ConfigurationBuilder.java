@@ -347,7 +347,7 @@ public class ConfigurationBuilder {
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
             setProject(projectId,
-                factory.getProject(project.getId(), projectName, project.getDescription(), project.getOwner(), project.getOptions()));
+                factory.getProject(project.getId(), project.namespace(), projectName, project.getDescription(), project.getOwner(), project.getOptions()));
         }
         return this;
     }
@@ -366,7 +366,7 @@ public class ConfigurationBuilder {
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
             setProject(projectId,
-                factory.getProject(project.getId(), project.getName(), projectDescription, project.getOwner(), project.getOptions()));
+                factory.getProject(project.getId(), project.namespace(), project.getName(), projectDescription, project.getOwner(), project.getOptions()));
         }
         return this;
     }
@@ -385,7 +385,7 @@ public class ConfigurationBuilder {
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
             setProject(projectId,
-                    factory.getProject(project.getId(), project.getName(), project.getDescription(), userId, project.getOptions()));
+                    factory.getProject(project.getId(), project.namespace(), project.getName(), project.getDescription(), userId, project.getOptions()));
         }
         return this;
     }
@@ -404,7 +404,7 @@ public class ConfigurationBuilder {
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
             setProject(projectId,
-                    factory.getProject(project.getId(), project.getName(), project.getDescription(), project.getOwner(), project.getOptions()));
+                    factory.getProject(project.getId(), project.namespace(), project.getName(), project.getDescription(), project.getOwner(), project.getOptions()));
         }
         return this;
     }
@@ -423,7 +423,7 @@ public class ConfigurationBuilder {
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
             setProject(projectId,
-                    factory.getProject(projectId, project.getName(), project.getDescription(), project.getOwner(), Optional.of(projectOptions)));
+                    factory.getProject(projectId, project.namespace(), project.getName(), project.getDescription(), project.getOwner(), Optional.of(projectOptions)));
         }
         return this;
     }

@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Stanford University
  */
 public class ProjectSerializerTest {
-    private static final String projectIdStr = "testProjectId1", diffIdStr = "testProjectId2";
+    private static final String projectIdStr = "testProjectId1", diffIdStr = "testProjectId2", projectNspc = "testProjectNspc";
     private static final ProjectId projectId = TestUtils.getProjectId(projectIdStr), diffProjectId = TestUtils.getProjectId(diffIdStr);
     private static final Name projectName = TestUtils.getName();
     private static final Description projectDescription = TestUtils.getDescription();
@@ -33,11 +33,11 @@ public class ProjectSerializerTest {
     public void setUp() {
         gson = new DefaultJsonSerializer().getGson();
 
-        project = TestUtils.getProject(projectId, projectName, projectDescription, owner,
+        project = TestUtils.getProject(projectId, projectNspc, projectName, projectDescription, owner,
                 Optional.of(projectOptions));
-        otherProject = TestUtils.getProject(projectId, projectName, projectDescription, owner,
+        otherProject = TestUtils.getProject(projectId, projectNspc, projectName, projectDescription, owner,
                 Optional.of(projectOptions));
-        diffProject = TestUtils.getProject(diffProjectId, projectName, projectDescription, owner,
+        diffProject = TestUtils.getProject(diffProjectId, projectNspc, projectName, projectDescription, owner,
                 Optional.of(projectOptions));
 
         jsonProject = gson.toJson(project, Project.class);
